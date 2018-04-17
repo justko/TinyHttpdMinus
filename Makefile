@@ -1,12 +1,12 @@
 .SUFFIXES:.out .cpp
 .PHONY:all clean
 
-MicroHttpdClient.out:MicroHttpdClient.cpp
-	g++ MicroHttpdClient.cpp -o MicroHttpdClient.out
+MicroClient.out:MicroClient_main.cpp MicroClient.cpp MicroClient.h
+	g++ MicroClient_main.cpp MicroClient.cpp -o MicroClient.out
 
-MicroHttpdServer.out:MicroHttpdServer.cpp MicroHttpd.cpp MicroHttpd.h
-	g++ MicroHttpdServer.cpp MicroHttpd.cpp -I. -o MicroHttpdServer.out
-all:MicroHttpdClient.out MicroHttpdServer.out
+MicroHttpd.out:MicroHttpd_main.cpp MicroHttpd.cpp MicroHttpd.h
+	g++ MicroHttpd_main.cpp MicroHttpd.cpp -I. -o MicroHttpd.out
+all:MicroHttpd.out MicroClient.out
 
 clean:
 	rm -f *.out
