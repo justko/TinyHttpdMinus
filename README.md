@@ -3,4 +3,4 @@
 为了不与原来的文件混淆，它才被称作MicroHttpd的
 1. <code>make all</code>编译代码
 2. <code>./MicroHttpd.out</code>启动服务器（MicroHttpd_main.cpp中设置的端口是10086）
-3. 注意：<code>MicroClient.out</code>现在的代码并不会发送HTTP Request，所以需要打开浏览器，输入http://localhost:10086/ ，来访问HTDoc中的内容，或者使用<code>curl</code>、<code>wget</code>等会发送request的Client连接它。
+3. <code>MicroClient.out</code>发送HTTP Request并接受Response。或者打开浏览器，输入http://localhost:10086/ ，来访问HTDoc中的内容，或者使用<code>curl</code>、<code>wget</code>等发送HTTP Request的Client连接它。
