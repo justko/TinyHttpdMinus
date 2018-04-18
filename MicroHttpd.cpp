@@ -87,6 +87,7 @@ void MicroHttpd::acceptRequest(void *arg)
     char *queryString = nullptr;
     //接收一行
     int numChars = getLine(client, buff, sizeof(buff));
+    //std::cout<<buff<<std::ends;
     //
     int i = 0;
     while (!isspace(buff[i]) && (i < sizeof(method) - 1))
@@ -239,7 +240,7 @@ void MicroHttpd::exeCGI(int client, const char *path,
             sprintf(length_env, "CONTENT_LENGTH=%d", content_length);
             putenv(length_env);
         }
-        execl(path, NULL);
+        execl(path, nullptr);
         exit(0);
     }
     else
@@ -320,8 +321,10 @@ void MicroHttpd::serveFile(int client, const char *filename)
     char buf[1024];
     buf[0] = 'A';
     buf[1] = '\0';
-    while ((numchars > 0) && strcmp("\n", buf))       /* read & discard headers */
+    while ((numchars > 0) && strcmp("\n", buf)) {      /* read & discard headers */
         numchars = getLine(client, buf, sizeof(buf)); //直到读取到空行
+        //std::cout<<buf<<std::ends;
+    }
 
     FILE *resource = fopen(filename, "r");
     if (resource == NULL)
@@ -365,7 +368,7 @@ void MicroHttpd::notFound(int client)
     char buf[1024];
     sprintf(buf, "HTTP/1.0 404 NOT FOUND\r\n");
     send(client, buf, strlen(buf), 0);
-    sprintf(buf, SERVER_STRING);
+    sprintf(buf,"%s", SERVER_STRING);
     send(client, buf, strlen(buf), 0);
     sprintf(buf, "Content-Type: text/html\r\n");
     send(client, buf, strlen(buf), 0);
@@ -388,7 +391,7 @@ void MicroHttpd::unimplemented(int client)
     char buf[1024];
     sprintf(buf, "HTTP/1.0 501 Method Not Implemented\r\n");
     send(client, buf, strlen(buf), 0);
-    sprintf(buf, SERVER_STRING);
+    sprintf(buf,"%s", SERVER_STRING);
     send(client, buf, strlen(buf), 0);
     sprintf(buf, "Content-Type: text/html\r\n");
     send(client, buf, strlen(buf), 0);

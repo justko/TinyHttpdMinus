@@ -12,9 +12,9 @@ public:
 private:
   static void exeCGI(int client, const char *path, const char *method, const char *query_string);
   static int getLine(int sock, char *buff, int size);
-  void errorDie(const char *sc);
+  static void errorDie(const char *sc);
 
-  //
+  //用于返回文件内容
   static void headers(int client, const char *filename);
   static void cat(int client, FILE *resource);
   static void serveFile(int client, const char *filename);
@@ -32,8 +32,8 @@ private:
 private:
   int httpd;
   unsigned short port;
-  const static char *SERVER_STRING;
-  const static unsigned STDIN;
+  static const char *SERVER_STRING;
+  static const unsigned STDIN;
   static const unsigned STDOUT;
   static const unsigned STDERR;
 };

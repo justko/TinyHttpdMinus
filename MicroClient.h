@@ -7,6 +7,7 @@ class MicroClient{
     void startup();
     void shutdown();
     void recvResponse();
+    void sendRequest();
     private:
     
     unsigned short port;

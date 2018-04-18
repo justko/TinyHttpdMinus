@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <iostream>
-
+#include<string.h>
 MicroClient::MicroClient(unsigned short port):port(port){
     
 }
@@ -32,6 +32,21 @@ void MicroClient::recvResponse(){
     while (recv(client, buff, sizeof(buff), 0) > 0)
         std::cout<<buff;
 }
+void MicroClient::sendRequest(){
+    char buff[1024];
+    sprintf(buff,"GET / HTTP/1.1\r\n");
+    send(client,buff,strlen(buff),0);
+    sprintf(buff,"Host: localhost:10086\r\n");
+    send(client,buff,strlen(buff),0);
+    sprintf(buff,"User-Agent: MicroClient/1.4.0\r\n");
+    send(client,buff,strlen(buff),0);
+    sprintf(buff,"Accept: */*\r\n");
+    send(client,buff,strlen(buff),0);
+    sprintf(buff,"\r\n");
+    send(client,buff,strlen(buff),0);
+}
+
+
 
 void MicroClient::shutdown(){
     close(client);
